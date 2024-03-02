@@ -1,0 +1,38 @@
+<h1>Editing about</h1>
+
+
+<div class="card">
+  current blog: <% if @about.blog %> <%= @about.blog.title %> <% else %> "nil" <% end %>
+</div>
+
+<%= render "form", about: @about %>
+
+<div id="add_to_blogs">
+
+<% Blog.all.each do |blog| %>
+
+  <div id="<%= dom_id blog %>" class="card">
+    <div>
+    <strong>slug/address:</strong>
+    <%= blog.address %>
+    </div>
+
+    <div>
+    <strong>blog title:</strong>
+    <%= blog.title %>
+    </div>
+  <%= form_with(model: @about ) do |form| %>
+
+    <%= form.hidden_field :blog_id, value: blog.id %>
+    <%= form.submit "add to blog", class: "btn btn-dark" %>
+
+  <% end %>
+  </div>
+
+<% end %>
+
+</div>
+<div>
+  <%= link_to "Show this about", @about %> |
+  <%= link_to "Back to abouts", abouts_path %>
+</div>

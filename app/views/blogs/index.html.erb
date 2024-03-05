@@ -2,13 +2,27 @@
 
 <h1>Blogs</h1>
 
+
 <div id="blogs">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+
+
   <% @blogs.each do |blog| %>
-    <%= render blog %>
-    <p>
-      <%= link_to "Show this blog", blog, class:"btn btn-primary" %>
-    </p>
+    <%= link_to blog do %>
+      <div class="col">
+        <div class="card">
+
+          <%= image_tag blog_img(blog), class:"card-img" %>
+      <div class="card-img-overlay">
+
+            <%= render blog %>
+      </div>
+
+    </div>
+    </div>
+      <% end %>
   <% end %>
+
 </div>
 
 <%= link_to "New blog", new_blog_path, class:"btn btn-primary" %>

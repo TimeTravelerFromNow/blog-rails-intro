@@ -2,6 +2,15 @@
 
 <%= render @blog %>
 
+<% if @blog.posts.count > 0 %>
+<%= render "blog_posts", posts: @blog.posts %>
+<% else %>
+  no posts in this blog.
+<% end %>
+
+  <h1> <%= @blog.story_title %> </h1>
+  <%= @blog.story %>
+
 <div>
   <%= link_to "Edit this blog", edit_blog_path(@blog), class:'btn btn-primary' %> |
   <%= link_to "Back to blogs", blogs_path, class:'btn btn-secondary' %>

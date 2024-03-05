@@ -1,8 +1,14 @@
 <h1>Editing blog</h1>
 
-<%= render "form", blog: @blog %>
+<div class="row md-auto d-flex flex-row md-container">
+  <div id="blog-form" class="col-md c-all">
+  <%= render "form", blog: @blog %>
+  </div>
 
-<br>
+  <div id="new_post-form" class="col-sm">
+  <%= render "posts_form", blog: @blog %>
+  </div>
+</div>
 
 <div>
   <%= link_to "Show this blog", @blog, class:'btn btn-primary' %> |

@@ -1,18 +1,7 @@
-<div id="<%= dom_id blog %>" class="card blog-card">
-  <p>
-    <strong>Title:</strong>
+
+
+<div id="<%= dom_id blog %>" class="blog-text-card">
+  <h1>
     <%= blog.title %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= blog.description %>
-  </p>
-
-  <%= blog.story %>
-
-  <% if blog.header_image.present? %>
-    <%= image_tag blog.header_image %>
-  <% end %>
-
+  </h1>
 </div>

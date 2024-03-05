@@ -10,7 +10,30 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+    <body class="<%= controller_name %> <%= action_name %>">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <% select_style = "" %>
+        <% selected = "card bg-primary text-white" %>
+        <% if current_page?(root_path)  %>
+        <% select_style = selected %>
+        <% end %>
+        <%= link_to "about", root_path, class:"navbar-brand #{select_style}" %>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <%= link_to "Blogs", blogs_path, class: "nav-link active" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Posts", posts_path, class: "nav-link active" %>
+        </li>
+      </ul>
+    </div>
+  </nav>
     <%= yield %>
   </body>
 </html>

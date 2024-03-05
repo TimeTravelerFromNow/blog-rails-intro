@@ -1,0 +1,16 @@
+
+<div class="posts-list container-md">
+<p style="color: green"><%= notice %></p>
+
+<h1>Posts</h1>
+
+<div id="posts" class="row">
+  <% posts.each do |post| %>
+    <div class="col-4">
+    <%= render post %>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to "New post", new_post_path %>
+</div>

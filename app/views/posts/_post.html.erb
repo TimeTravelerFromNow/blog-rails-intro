@@ -1,12 +1,7 @@
-<div id="<%= dom_id post %>">
-  <p>
-    <strong>Title:</strong>
+<div id="<%= dom_id post %>" class="card post-single">
+  <h2>
     <%= post.title %>
-  </p>
+  </h2>
 
-  <p>
-    <strong>Status:</strong>
-    <%= post.status %>
-  </p>
-
+  <%= link_to "read", post, class:"btn btn-secondary" %>
 </div>

@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
-
+  before_action :set_blog_for_post, only: %i[create]
   # GET /posts or /posts.json
   def index
     @posts = Post.all
@@ -22,7 +22,7 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
-
+    @post.blog = @blog
     respond_to do |format|
       if @post.save
         format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
@@ -61,6 +61,10 @@ class PostsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
+    end
+
+    def set_blog_for_post
+      @blog = Blog.find_by!(address: params[:blog_address])
     end
 
     # Only allow a list of trusted parameters through.

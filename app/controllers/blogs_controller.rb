@@ -17,6 +17,7 @@ class BlogsController < ApplicationController
 
   # GET /blogs/1/edit
   def edit
+    @post = @blog.posts.build()
   end
 
   # POST /blogs or /blogs.json
@@ -65,6 +66,6 @@ class BlogsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def blog_params
-      params.require(:blog).permit(:address, :title, :description, :story, :header_image)
+      params.require(:blog).permit(:featured, :address, :title, :description, :story, :header_image, :story_title)
     end
 end

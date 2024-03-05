@@ -16,8 +16,29 @@
 
 @import "bootstrap";
 
-.blog-card {
-  img {
-    max-width: 100px;
+#blogs {
+  @extend .container-sm;
+}
+
+.c-all {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  text-align: center;
+}
+.blog-text-card {
+  border-radius: 10px;
+  @extend .card;
+  background-color: rgba(255, 255, 255, 0.6);
+  .blog-desc {
+    color: black;
   }
+}
+
+.post-single {
+  padding: 5%;
+  max-width: 310px;
+}
+.posts-list {
+  max-width: 620px;
 }

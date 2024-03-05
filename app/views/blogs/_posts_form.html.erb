@@ -1,0 +1,15 @@
+<%= form_with model: [blog, @post] do |form| %>
+
+    <div>
+      <%= form.label :title, style: "display: block" %>
+      <%= form.text_field :title %>
+    </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<% blog.posts.each do |p| %>
+  <%= render p %>
+<% end %>

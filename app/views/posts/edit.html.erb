@@ -2,6 +2,12 @@
 
 <%= render "form", post: @post %>
 
+<hr>
+post content
+<% @post.contents.each do |content| %>
+  <%= render content %>
+<% end %>
+
 <br>
 
 <div>

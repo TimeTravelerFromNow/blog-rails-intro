@@ -4,11 +4,11 @@
 
 <h1>Posts</h1>
 
-<div id="posts" class="row">
+<div id="posts" class="col-5 c-all">
   <% posts.each do |post| %>
-    <div class="col-4">
-    <%= render post %>
-    </div>
+    <%= link_to post do %>
+      <%= render post %>
+    <% end %>
   <% end %>
 </div>
 

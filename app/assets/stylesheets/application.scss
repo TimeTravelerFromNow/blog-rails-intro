@@ -16,8 +16,19 @@
 
 @import "bootstrap";
 
+.posts {
+  @extend .container-sm;
+  max-width: 720px;
+
+}
+
 #blogs {
   @extend .container-sm;
+}
+
+.blogs.show {
+  @extend .container-sm;
+  max-width: 720px;
 }
 
 .c-all {

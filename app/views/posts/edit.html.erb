@@ -5,7 +5,7 @@
 <hr>
 post content
 <% @post.contents.each do |content| %>
-  <%= render content %>
+  <%= render "contents/content_form", content: content %>
 <% end %>
 
 <br>

@@ -1,15 +1,39 @@
 
 <% if content.persisted? %>
+  <%= form_with model: [@post, content] do |form| %>
 
-<% else %>
 
-<% end %>
-<div id="<%=dom_id content%>">
-  <div class="content <%= content.kind %>">
-  <% if content.paragraph? %>
-      <%= content.txt %>
-  <% else %>
+    <%= form.radio_button :kind, value: "paragraph" %>
+    <%= form.label :paragraph %>
 
+    <%= form.radio_button :kind, value: "image" %>
+    <%= form.label :image %>
+
+    <%= form.radio_button :kind, value: "code" %>
+    <%= form.label :code %>
+
+
+  <% if content.paragraph? || content.code? %>
+    <%= form.rich_text_area :txt %>
+    <%= form.label :code %>
   <% end %>
+
+    <%= form.submit "update content", class: "btn btn-secondary"%>
+  <% end %>
+  <div id="<%=dom_id content%>">
+    <div class="content <%= content.kind %>">
+    <% if content.paragraph? %>
+        <%= content.txt %>
+    <% else %>
+
+    <% end %>
+    </div>
   </div>
-</div>
+<% else %>
+  <div id="new_content" class="c-all">
+    <%= form_with model: [@post, @content] do |form| %>
+      <%= form.hidden_field :kind, value: "paragraph" %>
+      <%= form.submit "new paragraph", class: "btn btn-primary"%>
+    <% end %>
+  </div>
+<% end %>

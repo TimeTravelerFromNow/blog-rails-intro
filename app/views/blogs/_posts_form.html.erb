@@ -11,5 +11,8 @@
 <% end %>
 
 <% blog.posts.each do |p| %>
+  <% if p.persisted? %>
+
   <%= render p %>
+  <% end %>
 <% end %>

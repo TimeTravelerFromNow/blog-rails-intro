@@ -22,9 +22,6 @@
 
 }
 
-#blogs {
-  @extend .container-sm;
-}
 
 .blogs.show {
   @extend .container-sm;
@@ -32,10 +29,10 @@
 }
 
 .c-all {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  text-align: center;
+  // margin-left: auto;
+  // margin-right: auto;
+  // display: block;
+  // text-align: center;
 }
 .blog-text-card {
   border-radius: 10px;

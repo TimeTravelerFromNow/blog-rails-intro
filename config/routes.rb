@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  get 'content/update'
-  get 'content/destroy'
+
   resources :posts do
-    resources :content
+    resources :contents
   end
+
   resources :blogs, param: :address do
     resources :posts
   end

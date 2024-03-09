@@ -1,5 +1,6 @@
 
 <% if content.persisted? %>
+  <%= button_to "destroy", [@post, content], method: :delete, class: "btn btn-danger" %>
   <%= form_with model: [@post, content] do |form| %>
 
 
@@ -15,10 +16,8 @@
 
   <% if content.paragraph? || content.code? %>
     <%= form.rich_text_area :txt %>
-    <%= form.label :code %>
   <% end %>
-
-    <%= form.submit "update content", class: "btn btn-secondary"%>
+    <%= form.submit "update", class: "btn btn-secondary"%>
   <% end %>
   <div id="<%=dom_id content%>">
     <div class="content <%= content.kind %>">

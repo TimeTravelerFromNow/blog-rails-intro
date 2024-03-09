@@ -4,30 +4,28 @@
   <%= form_with model: [@post, content] do |form| %>
 
 
-    <%= form.radio_button :kind, value: "paragraph" %>
+    <%= form.radio_button :kind, "paragraph" %>
     <%= form.label :paragraph %>
 
-    <%= form.radio_button :kind, value: "image" %>
+    <%= form.radio_button :kind, "image" %>
     <%= form.label :image %>
 
-    <%= form.radio_button :kind, value: "code" %>
+    <%= form.radio_button :kind, "code" %>
     <%= form.label :code %>
 
 
-  <% if content.paragraph? || content.code? %>
-    <%= form.rich_text_area :txt %>
-  <% end %>
+    <% if content.paragraph? || content.code? %>
+      <%= form.rich_text_area :txt %>
+    <% end %>
+
+    <% if content.image? %>
+      <%= form.file_field :img %>
+      <%= render content %>
+    <% end %>
+
     <%= form.submit "update", class: "btn btn-secondary"%>
   <% end %>
-  <div id="<%=dom_id content%>">
-    <div class="content <%= content.kind %>">
-    <% if content.paragraph? %>
-        <%= content.txt %>
-    <% else %>
 
-    <% end %>
-    </div>
-  </div>
 <% else %>
   <div id="new_content" class="c-all">
     <%= form_with model: [@post, @content] do |form| %>

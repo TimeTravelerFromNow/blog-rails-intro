@@ -3,8 +3,16 @@
   <div class="content <%= content.kind %>">
   <% if content.paragraph? %>
       <%= content.txt %>
+  <% elsif content.code? %>
+      <%= content.txt %>
+  <% elsif content.image? %>
+    <% if content.img.present? %>
+    <%= image_tag content.img %>
+    <% else %>
+    <%= image_tag "dipper-img" %>
+    <% end %>
   <% else %>
-
+    ERROR: unknown content render
   <% end %>
   </div>
 </div>

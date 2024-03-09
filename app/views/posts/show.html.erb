@@ -2,6 +2,9 @@
 
 <%= render @post %>
 
+<% @post.contents.each do |content| %>
+  <%= render content %>
+<% end %>
 <div>
   <%= link_to "Edit this post", edit_post_path(@post) %> |
   <%= link_to "Back to posts", posts_path %>

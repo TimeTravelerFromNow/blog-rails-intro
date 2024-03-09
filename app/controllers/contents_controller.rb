@@ -17,7 +17,7 @@ class ContentsController < ApplicationController
   def update
     respond_to do |format|
       if @content.update(content_params)
-        format.html { redirect_to post_url(@post), notice: "content was successfully created." }
+        format.html { redirect_to edit_post_url(@post), notice: "content was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -36,7 +36,7 @@ class ContentsController < ApplicationController
 
   private
   def set_content
-    @content = @post.contents.find(params[:content_id])
+    @content = Content.find(params[:id])
   end
 
   def set_post

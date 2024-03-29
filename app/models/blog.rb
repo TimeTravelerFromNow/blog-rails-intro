@@ -1,5 +1,5 @@
 class Blog < ApplicationRecord
-
+  has_many :posts
   has_rich_text :story
 
   has_one_attached :header_image

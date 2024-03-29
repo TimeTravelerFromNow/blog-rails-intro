@@ -3,6 +3,17 @@
 <%= render "form", blog: @blog %>
 
 <br>
+<hr>
+
+<%= form_with model:[@blog,@post] do |form| %>
+
+  <%= form.label :title %>
+  <%= form.text_field :title %>
+
+  <%= form.hidden_field :blog_id, value: @blog.id %>
+
+  <%= form.submit "create post" %>
+<% end %>
 
 <div>
   <%= link_to "Show this blog", @blog, class:'btn btn-primary' %> |

@@ -17,6 +17,7 @@ class BlogsController < ApplicationController
 
   # GET /blogs/1/edit
   def edit
+    @post = Post.new
   end
 
   # POST /blogs or /blogs.json

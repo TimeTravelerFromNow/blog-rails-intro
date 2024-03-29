@@ -2,6 +2,12 @@
 
 <%= render @blog %>
 
+<% @blog.posts.each do |post| %>
+  <%= link_to post do %>
+    <%= render post %>
+  <% end %>
+<% end %>
+
 <div>
   <%= link_to "Edit this blog", edit_blog_path(@blog), class:'btn btn-primary' %> |
   <%= link_to "Back to blogs", blogs_path, class:'btn btn-secondary' %>

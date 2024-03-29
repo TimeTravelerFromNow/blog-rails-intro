@@ -16,6 +16,18 @@
 
 @import "bootstrap";
 
+.glassy-title {
+  @extend .card;
+  background-color: rgba(255, 244, 244, 0.5);
+}
+.blog-link-square {
+  margin: auto;
+}
+.center-content {
+  @extend .container-md;
+  max-width: 600px;
+}
+
 .blog-card {
   img {
     max-width: 100px;

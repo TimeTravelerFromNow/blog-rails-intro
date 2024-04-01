@@ -1,0 +1,15 @@
+
+<% if blog.header_image.present? %>
+  <%= image_tag blog.header_image, class:"card-img" %>
+<% end %>
+
+<div class="card-img-overlay">
+  <h5 class="card-title glassy-title">
+    <%= blog.title %>
+  </h5>
+
+
+</div>
+<small class="card-footer text-muted">
+  Last updated <%= time_ago_in_words blog.updated_at %> ago
+</small>

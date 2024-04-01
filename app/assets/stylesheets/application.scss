@@ -16,20 +16,50 @@
 
 @import "bootstrap";
 
+.top-bar {
+  max-width: 720px;
+  @extend .mx-auto;
+}
 .glassy-title {
   @extend .card;
-  background-color: rgba(255, 244, 244, 0.5);
-}
-.blog-link-square {
-  margin: auto;
-}
-.center-content {
-  @extend .container-md;
-  max-width: 600px;
+  border: 0;
+  border-left: 2px solid #ccc;
+  border-bottom: 2px solid #ccc;
+
+  background-color: rgba(255, 244, 244, 0.7);
+  color: black;
+  text-align: center;
 }
 
-.blog-card {
+.blog-card-row {
+  @extend .row;
+  //@extend .flex-row;
+  @extend .d-flex;
+  flex: flex-flow;
+  justify-content: center;
+}
+.blog-card-row>* {
+  flex: 1 1 400px;
+}
+.blog-link-square {
+  margin: 1%;
+  background-color: white;
+
+  max-height: 400px;
+  max-width: 400px;
+  //aspect-ratio: 1;
+  margin-bottom: 40px;
+  @extend .card;
+  @extend .text-center;
+
+  border-style: none;
   img {
-    max-width: 100px;
-  }
+    object-fit: cover;
+
+    min-height: 100%;
+    max-height:100%;
+    width: auto;
+    @extend .mx-auto;
+    @extend .img-fluid;
+    }
 }

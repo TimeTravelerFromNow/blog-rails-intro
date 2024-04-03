@@ -1,17 +1,10 @@
 <div id="<%= dom_id post %>">
-  <p>
-    <strong>Title:</strong>
+  <h4 class="col">
     <%= post.title %>
-  </p>
+  </h4>
 
-  <p>
-    <strong>Status:</strong>
-    <%= post.status %>
-  </p>
-
-  <p>
-    <strong>Blog:</strong>
-    <%= post.blog_id %>
-  </p>
+  <small class="text-muted col">
+    Last updated <%= time_ago_in_words post.updated_at %> ago
+  </small>
 
 </div>

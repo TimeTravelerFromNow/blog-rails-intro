@@ -16,10 +16,11 @@
 
 @import "bootstrap";
 
-.top-bar {
-  max-width: 720px;
-  @extend .mx-auto;
+.show {
+  @extend .container-md;
+  max-width: 620px;
 }
+
 .glassy-title {
   @extend .card;
   border: 0;

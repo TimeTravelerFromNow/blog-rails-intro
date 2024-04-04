@@ -1,4 +1,5 @@
 
+<div class="card bg-dark text-white">
 <% if blog.header_image.present? %>
   <%= image_tag blog.header_image, class:"card-img" %>
 <% end %>
@@ -8,8 +9,6 @@
     <%= blog.title %>
   </h5>
 
-
+  <p class="card-text">Last updated <%= time_ago_in_words blog.updated_at %> ago </p>
 </div>
-<small class="card-footer text-muted">
-  Last updated <%= time_ago_in_words blog.updated_at %> ago
-</small>
+</div>

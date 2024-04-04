@@ -2,10 +2,10 @@
 
 <h1>Blogs</h1>
 
-<div id="blogs" class="container-md ">
-  <div class="blog-card-row">
+<div id="blogs" class="container-md">
+  <div class="row">
   <% @blogs.each do |blog| %>
-    <%= link_to blog, class:"blog-link-square col" do %>
+    <%= link_to blog, class:"blog-link-square col-5" do %>
       <%= render "blog_card", blog: blog %>
     <% end %>
   <% end %>

@@ -51,13 +51,7 @@
 
 .glassy-title {
   @extend .card;
-  border: 0;
-  border-left: 2px solid #ccc;
-  border-bottom: 2px solid #ccc;
-
-  background-color: rgba(255, 244, 244, 0.7);
-  color: black;
-  text-align: center;
+  background-color: rgba(255, 244, 244, 0.5);
 }
 
 .blog-card-row {
@@ -69,25 +63,18 @@
 .blog-card-row>* {
   flex: 1 1 400px;
 }
-.blog-link-square {
-  margin: 1%;
-  background-color: white;
 
+.blog-link-square {
   max-height: 400px;
   max-width: 400px;
   //aspect-ratio: 1;
   margin-bottom: 40px;
-  @extend .card;
-  @extend .text-center;
 
-  border-style: none;
+  margin:auto;
+}
+
+.blog-card {
   img {
-    object-fit: cover;
-
-    min-height: 100%;
-    max-height:100%;
-    width: auto;
-    @extend .mx-auto;
-    @extend .img-fluid;
-    }
+    max-width: 100px;
+  }
 }

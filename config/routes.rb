@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :homes do
+    resources :blogs, param: :address
+  end
   resources :posts
   resources :blogs, param: :address do
     resources :posts
@@ -7,5 +10,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  root "blogs#index"
+  root "homes#about"
 end

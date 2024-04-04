@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  blogs: one
+  time_tag: 2024-04-03 21:13:54
+
+two:
+  blogs: two
+  time_tag: 2024-04-03 21:13:54

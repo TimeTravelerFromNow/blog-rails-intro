@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_29_025913) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_04_043446) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -55,6 +55,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_29_025913) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "address"
+    t.integer "home_id"
+    t.index ["home_id"], name: "index_blogs_on_home_id"
+  end
+
+  create_table "homes", force: :cascade do |t|
+    t.datetime "time_tag"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "posts", force: :cascade do |t|
@@ -68,5 +76,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_29_025913) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "blogs", "homes"
   add_foreign_key "posts", "blogs"
 end

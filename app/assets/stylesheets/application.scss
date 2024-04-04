@@ -16,6 +16,12 @@
 
 @import "bootstrap";
 
+.homes.about {
+
+    @extend .container-md;
+    max-width: 620px;
+}
+
 .show {
   @extend .container-md;
   max-width: 620px;

@@ -1,0 +1,33 @@
+<h1>Editing home</h1>
+
+<p style="color: green"><%= notice %></p>
+<%= render "form", home: @home %>
+
+<br>
+
+<div id="blogs" class="container-md ">
+  <div class="blog-card-row">
+<% Blog.all.each do |blog| %>
+<div class="col">
+  <%= render blog %>
+
+  <%= form_with(model: [@home,blog]) do |form| %>
+    <% if blog.featured? %>
+
+    <%= form.hidden_field :home_id, value: nil %>
+    <%= form.submit "remove"%>
+    <% else %>
+
+    <%= form.hidden_field :home_id, value: @home.id %>
+    <%= form.submit "feature blog"%>
+    <% end %>
+
+  <% end %>
+  </div>
+<% end %>
+</div>
+</div>
+<div>
+  <%= link_to "Show this home", @home %> |
+  <%= link_to "Back to homes", homes_path %>
+</div>

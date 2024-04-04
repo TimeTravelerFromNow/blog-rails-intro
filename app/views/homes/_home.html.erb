@@ -1,0 +1,23 @@
+<div id="<%= dom_id home %>" class="bg-light">
+
+  <div id="blogs" class="container-md ">
+    <div class="blog-card-row">
+    <% home.blogs.each do |blog| %>
+      <%= link_to blog, class:"blog-link-square col" do %>
+        <%= render "blogs/blog_card", blog: blog %>
+      <% end %>
+    <% end %>
+    </div>
+  </div>
+
+  <div class="card">
+    <strong>About:</strong>
+    <%= home.about %>
+  </div>
+
+  <p>
+    <strong>Time tag:</strong>
+    <%= home.time_tag.year %>
+  </p>
+
+</div>

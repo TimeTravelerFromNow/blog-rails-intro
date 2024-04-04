@@ -1,0 +1,27 @@
+<%= form_with(model: home) do |form| %>
+  <% if home.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(home.errors.count, "error") %> prohibited this home from being saved:</h2>
+
+      <ul>
+        <% home.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :about, style: "display: block" %>
+    <%= form.rich_text_area :about %>
+  </div>
+
+  <div>
+    <%= form.label :time_tag, style: "display: block" %>
+    <%= form.datetime_field :time_tag %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

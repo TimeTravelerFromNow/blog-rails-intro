@@ -1,0 +1,7 @@
+
+<% if @home %>
+  <%= render @home %>
+<% else %>
+  #Home page needs configuring, check out
+  <%= link_to "my blog", blogs_path %>
+<% end %>

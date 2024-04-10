@@ -27,8 +27,13 @@
   </div>
 
   <div>
+    <%= form.label :site_icon_size, style: "display: block" %>
+    <%= form.number_field :site_icon_size, value: home.site_icon_size  %>
+  </div>
+
+  <div>
   <strong> preview: </strong>
-  <i class="<%=home.icon_full%>" style="line-height:1"> </i>
+  <%= home.fa_icon.html_safe %>
   <a href="https://fontawesome.com/search?o=r&m=free&f=brands">More Favicons</a>
   </div>
 

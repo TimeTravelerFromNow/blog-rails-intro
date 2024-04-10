@@ -1,7 +1,11 @@
 class Home < ApplicationRecord
+  include IconsHelper
+
   has_rich_text :about
   has_many :blogs, dependent: :nullify
   has_and_belongs_to_many :ext_links
+
+  validates_inclusion_of :site_icon_size, :in => 0..6
 
   def self.time_stamp
     home_time = "2022"
@@ -15,27 +19,13 @@ class Home < ApplicationRecord
     Home.all.where(active: true).first
   end
 
-  def icon_full
-    full = ""
-
-    if icon_class
-      full << icon_class
-    else
-      full << "fa-brands"
-    end
-
-    if icon
-      full << " " << icon
-    else
-      full << " " << "fa-rebel"
-    end
-
-    full
+  def fa_icon
+    icon_html(icon_class, icon, site_icon_size)
   end
 
-  def self.icon
+  def self.fa_icon
     if Home.active_home
-      return Home.active_home.icon_full
+      return Home.active_home.fa_icon
     end
     "fa-brand fa-rebel"
   end

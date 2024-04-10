@@ -1,11 +1,16 @@
 Rails.application.routes.draw do
+  resources :ext_links
   resources :homes do
     resources :blogs, param: :address
   end
+
   resources :posts
+
   resources :blogs, param: :address do
     resources :posts
   end
+
+  get "homes/:id/make_active", to:"homes#make_active", as: :make_active
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

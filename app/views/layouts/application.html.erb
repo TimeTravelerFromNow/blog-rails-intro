@@ -10,7 +10,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="narrow-all">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <%= link_to "about", root_path, class:"navbar-brand" %>
@@ -18,12 +18,15 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav ml-md-auto mb-2 mb-lg-0 c-top">
         <li class="nav-item">
           <%= link_to "blogs", blogs_path, class:"nav-link active"%>
         </li>
         <li class="nav-item">
           <%= link_to "posts", posts_path, class:"nav-link active"%>
+        </li>
+        <li class="nav-item">
+          <%= link_to "homes", homes_path, class:"nav-link active"%>
         </li>
       </ul>
     </div>
@@ -32,5 +35,21 @@
   <div class="<%= controller_name%> <%= action_name %>">
     <%= yield %>
   </div>
+  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+    <div class="col-md-4 d-flex align-items-center">
+      <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+        <i class="<%= Home.icon %>" width="100" height="100"></i>
+      </a>
+      <span class="mb-3 mb-md-0 text-body-secondary">
+
+        © <%= Home.time_stamp %> <%= Home.brand %> </span>
+    </div>
+
+    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+      <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+      <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+      <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+    </ul>
+  </footer>
   </body>
 </html>

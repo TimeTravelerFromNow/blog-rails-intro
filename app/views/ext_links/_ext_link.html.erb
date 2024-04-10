@@ -1,0 +1,19 @@
+<div id="<%= dom_id ext_link %>">
+  <p>
+    <strong>Link:</strong>
+    <%= ext_link.link %>
+  </p>
+
+  <p>
+    <strong>Fa class:</strong>
+    <%= ext_link.fa_class %>
+  </p>
+
+  <p>
+    <strong>Fa icon:</strong>
+    <%= ext_link.fa_icon %>
+  </p>
+  <a href="<%=ext_link.link%>">
+  <i class="fa-2xl <%=ext_link.fa_class%> <%=ext_link.fa_icon%>"></i>
+  </a>
+</div>

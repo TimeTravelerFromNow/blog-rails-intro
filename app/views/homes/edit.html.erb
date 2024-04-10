@@ -5,6 +5,8 @@
 
 <br>
 
+<hr>
+<h4> feature blogs </h4>
 <div id="blogs" class="container-md ">
   <div class="blog-card-row">
 <% Blog.all.each do |blog| %>
@@ -15,7 +17,7 @@
     <% if blog.featured? %>
 
     <%= form.hidden_field :home_id, value: nil %>
-    <%= form.submit "remove"%>
+    <%= form.submit "remove from home #{blog.home.id}"%>
     <% else %>
 
     <%= form.hidden_field :home_id, value: @home.id %>

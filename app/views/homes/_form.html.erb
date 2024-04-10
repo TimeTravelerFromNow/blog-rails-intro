@@ -17,6 +17,27 @@
   </div>
 
   <div>
+    <%= form.label :icon_class, style: "display: block" %>
+    <%= form.text_field :icon_class, value: home.icon_class %>
+  </div>
+
+  <div>
+    <%= form.label :icon, style: "display: block" %>
+    <%= form.text_field :icon, value: home.icon  %>
+  </div>
+
+  <div>
+  <strong> preview: </strong>
+  <i class="<%=home.icon_full%>" style="line-height:1"> </i>
+  <a href="https://fontawesome.com/search?o=r&m=free&f=brands">More Favicons</a>
+  </div>
+
+  <div>
+    <%= form.label :brand_name, style: "display: block" %>
+    <%= form.text_field :brand_name, value: home.brand_name %>
+  </div>
+
+  <div>
     <%= form.label :time_tag, style: "display: block" %>
     <%= form.datetime_field :time_tag %>
   </div>

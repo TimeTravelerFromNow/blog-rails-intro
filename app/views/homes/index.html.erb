@@ -2,13 +2,19 @@
 
 <h1>Homes</h1>
 
-<div id="homes">
+<div id="homes" class="container-sm">
+  <div class="row flex-row">
   <% @homes.each do |home| %>
-    <%= render home %>
-    <p>
-      <%= link_to "Show this home", home %>
-    </p>
+
+      <div class="col-3">
+      <%= render "preview", home: home %>
+      <%= link_to "edit", edit_home_path(home), class:"btn btn-primary" %>
+      <% if !home.active? %>
+        <%= link_to "set active", make_active_url(home) %>
+      <% end %>
+      </div>
   <% end %>
+  </div>
 </div>
 
 <%= link_to "New home", new_home_path %>

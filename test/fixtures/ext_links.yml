@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  link: MyString
+  fa_class: MyString
+  fa_icon: MyString
+
+two:
+  link: MyString
+  fa_class: MyString
+  fa_icon: MyString

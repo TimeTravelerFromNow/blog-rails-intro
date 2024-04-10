@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_04_043446) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_10_062143) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -59,10 +59,29 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_04_043446) do
     t.index ["home_id"], name: "index_blogs_on_home_id"
   end
 
+  create_table "ext_links", force: :cascade do |t|
+    t.string "link"
+    t.string "fa_class"
+    t.string "fa_icon"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "homes", force: :cascade do |t|
     t.datetime "time_tag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "icon"
+    t.string "brand_name"
+    t.string "icon_class"
+    t.boolean "active"
+  end
+
+  create_table "homes_ext_links", id: false, force: :cascade do |t|
+    t.integer "homes_id"
+    t.integer "ext_links_id"
+    t.index ["ext_links_id"], name: "index_homes_ext_links_on_ext_links_id"
+    t.index ["homes_id"], name: "index_homes_ext_links_on_homes_id"
   end
 
   create_table "posts", force: :cascade do |t|

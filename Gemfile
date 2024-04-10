@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.0.0"
 
+gem "font-awesome-sass"
+
 gem "sassc-rails"
 
 gem "bootstrap", "~> 5.1.3"

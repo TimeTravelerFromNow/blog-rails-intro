@@ -1,9 +1,19 @@
 class HomesController < ApplicationController
-  before_action :set_home, only: %i[ show edit update destroy ]
+  before_action :set_home, only: %i[ show edit update destroy make_active ]
 
   # GET /homes or /homes.json
   def index
     @homes = Home.all
+  end
+
+  def make_active
+    Home.all.each do |h|
+      h.active = false
+      h.save
+    end
+    @home.active = true
+    @home.save
+    redirect_to homes_path
   end
 
   def about
@@ -69,6 +79,6 @@ class HomesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def home_params
-      params.require(:home).permit(:about, :time_tag)
+      params.require(:home).permit(:about, :time_tag, :icon, :icon_class, :brand_name)
     end
 end

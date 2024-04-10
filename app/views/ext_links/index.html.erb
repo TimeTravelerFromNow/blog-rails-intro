@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Ext links</h1>
+
+<div id="ext_links">
+  <% @ext_links.each do |ext_link| %>
+    <%= render ext_link %>
+    <p>
+      <%= link_to "Show this ext link", ext_link %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New ext link", new_ext_link_path %>

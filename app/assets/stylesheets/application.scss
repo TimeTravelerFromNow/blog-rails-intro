@@ -15,6 +15,28 @@
  */
 
 @import "bootstrap";
+@import "font-awesome";
+.c-top {
+  margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-: 50%;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+:root {
+  --bg-col: #eeccdd;
+  background-color: var(--bg-col);
+}
+.narrow-all {
+  --site-width: 640px;
+  @extend .container-md;
+  max-width: var(--site-width);
+}
+
+.c-all {
+  margin: auto;
+  justify-content: center;
+}
 
 .homes.about {
 
@@ -40,7 +62,6 @@
 
 .blog-card-row {
   @extend .row;
-  //@extend .flex-row;
   @extend .d-flex;
   flex: flex-flow;
   justify-content: center;

@@ -1,0 +1,8 @@
+<%= form_with model: ext_link do |form| %>
+<%= form.label :fa_class %>
+<%= form.text_field :fa_class, value: ext_link.fa_class %>
+<%= form.label :fa_icon %>
+<%= form.text_field :fa_icon, value: ext_link.fa_icon %>
+<a href="https://fontawesome.com/search?o=r&m=free&f=brands">more icons</a>
+<%= form.submit "save" %>
+<% end %>

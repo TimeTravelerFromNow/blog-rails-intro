@@ -1,0 +1,2 @@
+module ExtLinksHelper
+end

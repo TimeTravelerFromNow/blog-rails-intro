@@ -42,7 +42,7 @@ class Home < ApplicationRecord
 
   def self.brand
     b = "my personal website"
-    if Home.active_home.brand_name
+    if Home.active_home
       b = Home.active_home.brand_name
     end
     b

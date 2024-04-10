@@ -3,9 +3,9 @@
 This Ruby on Rails example blog is featured in my intro to rails series on my Youtube: https://youtu.be/ZCtcDiYP2rk?si=ypTJ3aax4IDzsoQF
 
 <h4> blog_app-demo </h4>
-My project goes by a few names
-blog_app-demo, blog-rails-intro
-Don't worry it's all the same code
+
+Rails apps for everyone.  For those who want a personal rails-based website.
+Thinking of this as a online profile app for Blog, Professional, and Projects.
 
 * Ruby version
 v3.0.0

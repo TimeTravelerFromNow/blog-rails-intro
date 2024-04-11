@@ -17,7 +17,7 @@ class HomesController < ApplicationController
   end
 
   def about
-    @home = Home.first
+    @home = Home.active_home
   end
 
   # GET /homes/1 or /homes/1.json

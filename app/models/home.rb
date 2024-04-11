@@ -10,9 +10,7 @@ class Home < ApplicationRecord
 
   def self.time_stamp
     home_time = "2022"
-    if Home.active_home
-      home_time = Home.active_home.time_tag.year
-    end
+    home_time = Home.active_home.time_tag.year if Home.active_home.time_tag
     home_time
   end
 
@@ -41,7 +39,7 @@ class Home < ApplicationRecord
 
   def self.site_width
     site_width = 720
-    site_width = Home.first.site_width if Home.active_home
+    site_width = Home.active_home.site_width if Home.active_home
     site_width
   end
 end

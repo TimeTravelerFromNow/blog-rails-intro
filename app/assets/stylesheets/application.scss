@@ -16,10 +16,11 @@
 
 @import "bootstrap";
 @import "font-awesome";
+
 .c-top {
   margin-block-start: 1em;
   margin-block-end: 1em;
-  padding-inline-start: 40px;
+  //padding-inline-start: 40px;
 }
 :root {
   --bg-col: #eeccdd;
@@ -32,19 +33,8 @@
 }
 
 .c-all {
-  margin: auto;
-  justify-content: center;
-}
-
-.homes.about {
-
-    @extend .container-md;
-    max-width: 620px;
-}
-
-.show {
-  @extend .container-md;
-  max-width: 620px;
+  // margin: auto;
+  // justify-content: center;
 }
 
 .glassy-title {

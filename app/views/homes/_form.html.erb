@@ -16,35 +16,50 @@
     <%= form.rich_text_area :about %>
   </div>
 
-  <div>
-    <%= form.label :icon_class, style: "display: block" %>
-    <%= form.text_field :icon_class, value: home.icon_class %>
-  </div>
+  <div class="container-sm">
+    <div class="row">
 
-  <div>
-    <%= form.label :icon, style: "display: block" %>
-    <%= form.text_field :icon, value: home.icon  %>
-  </div>
+      <div class="col">
+        <div>
+          <%= form.label :brand_name, style: "display: block" %>
+          <%= form.text_field :brand_name, value: home.brand_name %>
+        </div>
 
-  <div>
-    <%= form.label :site_icon_size, style: "display: block" %>
-    <%= form.number_field :site_icon_size, value: home.site_icon_size  %>
-  </div>
+        <div>
+          <%= form.label :time_tag, style: "display: block" %>
+          <%= form.datetime_field :time_tag %>
+        </div>
+      </div>
 
-  <div>
-  <strong> preview: </strong>
-  <%= home.fa_icon.html_safe %>
-  <a href="https://fontawesome.com/search?o=r&m=free&f=brands">More Favicons</a>
-  </div>
+      <div class="col">
+        <div>
+          <%= form.label :icon_class, style: "display: block" %>
+          <%= form.text_field :icon_class, value: home.icon_class %>
+        </div>
 
-  <div>
-    <%= form.label :brand_name, style: "display: block" %>
-    <%= form.text_field :brand_name, value: home.brand_name %>
-  </div>
+        <div>
+          <%= form.label :icon, style: "display: block" %>
+          <%= form.text_field :icon, value: home.icon  %>
+        </div>
 
-  <div>
-    <%= form.label :time_tag, style: "display: block" %>
-    <%= form.datetime_field :time_tag %>
+        <div>
+          <%= form.label :site_icon_size, style: "display: block" %>
+          <%= form.number_field :site_icon_size, value: home.site_icon_size  %>
+        </div>
+
+        <div>
+          <strong> preview: </strong>
+          <%= sanitize home.fa_icon %>
+          <a href="https://fontawesome.com/search?o=r&m=free&f=brands">More Favicons</a>
+        </div>
+
+        <div>
+          <%= form.label :site_width, style: "display: block" %>
+          <%= form.number_field :site_width, value: home.site_width  %>px
+        </div>
+      </div>
+      <!-- two row divs -->
+    </div>
   </div>
 
   <div>

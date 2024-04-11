@@ -79,6 +79,6 @@ class HomesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def home_params
-      params.require(:home).permit(:about, :time_tag, :icon, :icon_class, :site_icon_size, :brand_name)
+      params.require(:home).permit(:about, :time_tag, :icon, :icon_class, :site_icon_size, :site_width, :brand_name)
     end
 end

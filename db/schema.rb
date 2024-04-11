@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_10_224928) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_11_160014) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -76,6 +76,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_10_224928) do
     t.string "icon_class"
     t.boolean "active"
     t.integer "site_icon_size"
+    t.integer "site_width", default: 720
   end
 
   create_table "homes_ext_links", id: false, force: :cascade do |t|

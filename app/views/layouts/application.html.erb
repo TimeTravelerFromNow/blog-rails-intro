@@ -10,7 +10,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="narrow-all">
+  <body class="narrow-all" style="--site-width: <%= Home.site_width %>px;">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <%= link_to "about", root_path, class:"navbar-brand" %>
@@ -18,7 +18,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-md-auto mb-2 mb-lg-0 c-top">
+      <ul class="c-top navbar-nav ml-md-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <%= link_to "blogs", blogs_path, class:"nav-link active"%>
         </li>
@@ -38,7 +38,7 @@
   <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
     <div class="col-md-4 d-flex align-items-center">
       <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-        <%= Home.fa_icon %>
+        <%= sanitize Home.fa_icon %>
       </a>
       <span class="mb-3 mb-md-0 text-body-secondary">
 

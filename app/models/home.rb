@@ -6,6 +6,7 @@ class Home < ApplicationRecord
   has_and_belongs_to_many :ext_links
 
   validates_inclusion_of :site_icon_size, :in => 0..6
+  validates_inclusion_of :site_width, :in => 400..2560
 
   def self.time_stamp
     home_time = "2022"
@@ -36,5 +37,11 @@ class Home < ApplicationRecord
       b = Home.active_home.brand_name
     end
     b
+  end
+
+  def self.site_width
+    site_width = 720
+    site_width = Home.first.site_width if Home.active_home
+    site_width
   end
 end

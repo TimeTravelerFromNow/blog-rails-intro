@@ -4,11 +4,16 @@ class Home < ApplicationRecord
 
   has_rich_text :about
   has_many :blogs, dependent: :nullify
-  has_and_belongs_to_many :ext_links
+  has_and_belongs_to_many :ext_links, dependent: :nullify
 
   validates_presence_of :site_icon_size
   validates_inclusion_of :site_icon_size, :in => VALID_ICON_SIZES
   validates_inclusion_of :site_width, :in => VALID_SITE_WIDTHS
+
+  before_save :activate_when_none_active
+  def activate_when_none_active
+    self.active = true if Home.active_home.nil?
+  end
 
   def self.time_stamp
     home_time = "2022"

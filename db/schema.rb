@@ -24,8 +24,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_11_160014) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.integer "record_id", null: false
-    t.integer "blob_id", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -44,7 +44,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_11_160014) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.integer "blob_id", null: false
+    t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -77,13 +77,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_11_160014) do
     t.boolean "active"
     t.integer "site_icon_size"
     t.integer "site_width", default: 720
-  end
-
-  create_table "homes_ext_links", id: false, force: :cascade do |t|
-    t.integer "homes_id"
-    t.integer "ext_links_id"
-    t.index ["ext_links_id"], name: "index_homes_ext_links_on_ext_links_id"
-    t.index ["homes_id"], name: "index_homes_ext_links_on_homes_id"
   end
 
   create_table "posts", force: :cascade do |t|

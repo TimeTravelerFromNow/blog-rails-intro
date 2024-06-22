@@ -28,7 +28,7 @@
 }
 .narrow-all {
   --site-width: 640px;
-  @extend .container-md;
+  @extend .container;
   max-width: var(--site-width);
 }
 

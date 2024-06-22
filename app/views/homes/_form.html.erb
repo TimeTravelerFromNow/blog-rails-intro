@@ -44,7 +44,7 @@
 
         <div>
           <%= form.label :site_icon_size, style: "display: block" %>
-          <%= form.number_field :site_icon_size, value: home.site_icon_size  %>
+          <%= form.number_field :site_icon_size, value: home.site_icon_size, in: IconsHelper::VALID_ICON_SIZES  %>
         </div>
 
         <div>
@@ -55,7 +55,7 @@
 
         <div>
           <%= form.label :site_width, style: "display: block" %>
-          <%= form.number_field :site_width, value: home.site_width  %>px
+          <%= form.number_field :site_width, value: home.site_width, in: Home::VALID_SITE_WIDTHS  %>px
         </div>
       </div>
       <!-- two row divs -->

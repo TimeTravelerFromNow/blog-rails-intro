@@ -27,15 +27,14 @@ class Home < ApplicationRecord
   end
 
   def fa_icon
-    icon_class ||= 'fa-solid'
-    icon ||= 'fa-robot'
+    self.icon_class ||= 'fa-solid'
+    self.icon ||= 'fa-robot'
     icon_html(icon_class, icon, site_icon_size)
   end
 
   def self.fa_icon
     return "<i class='fa-solid fa-robot'></i>" unless Home.active_home
-    home_icon = Home.active_home.fa_icon if Home.active_home.fa_icon
-    home_icon
+    Home.active_home.fa_icon if Home.active_home.fa_icon
   end
 
   def self.brand

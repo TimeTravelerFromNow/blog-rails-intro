@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
+  get 'contents/create'
+  get 'contents/update'
+  get 'contents/destroy'
   resources :ext_links
   resources :homes do
     resources :blogs, param: :address
   end
 
-  resources :posts
+  resources :posts do
+    resources :contents
+  end
 
   resources :blogs, param: :address do
     resources :posts

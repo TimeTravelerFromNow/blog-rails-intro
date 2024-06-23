@@ -1,6 +1,15 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @post %>
+<div class="d-flex justify-content-center">
+  <%= render @post %>
+
+</div>
+
+
+  <% @post.contents.each do |content| %>
+
+    <%= render content %>
+  <% end %>
 
 <hr>
 <%= link_to "back to #{@post.blog.title}", @post.blog, class:"btn btn-secondary" %>

@@ -3,6 +3,26 @@
 <%= render "form", post: @post %>
 
 <br>
+<hr>
+<div class="d-flex justify-content-center">
+
+  <%= form_with model: [@post, Content] do |form| %>
+
+    <%= form.submit 'add content', class:'btn btn-primary' %>
+  <% end %>
+
+</div>
+
+<% @post.contents.each do |c| %>
+
+  <%= render c %>
+
+  <%= form_with model: [@post, c] do |form| %>
+    <%= form.rich_text_area :paragraph %>
+    <%= form.submit 'update' %>
+  <% end %>
+
+<% end %>
 
 <div>
   <%= link_to "Show this post", @post %> |

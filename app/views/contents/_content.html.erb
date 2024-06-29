@@ -1,2 +1,14 @@
 
-<%= content.paragraph %>
+<% case content.kind %>
+<% when 'paragraph' %>
+
+  <%= content.paragraph %>
+
+<% when 'image' %>
+
+  <%= image_tag content.image_safe, class:'content-image' %>
+
+<% else %>
+
+  unknown kind: <%= content.kind %>
+<% end %>

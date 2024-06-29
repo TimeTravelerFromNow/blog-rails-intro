@@ -5,22 +5,43 @@
 <br>
 <hr>
 <div class="d-flex justify-content-center">
-
-  <%= form_with model: [@post, Content] do |form| %>
-
-    <%= form.submit 'add content', class:'btn btn-primary' %>
-  <% end %>
-
+  <div class="m-3">
+    <%= form_with model: [@post, Content] do |form| %>
+      <%= form.hidden_field :kind, value: 'paragraph' %>
+      <%= form.submit 'add content', class:'btn btn-primary' %>
+    <% end %>
+  </div>
+  <div class="m-3">
+    <%= form_with model: [@post, Content] do |form| %>
+      <%= form.hidden_field :kind, value: 'image' %>
+      <%= form.submit 'add image', class:'btn btn-primary' %>
+    <% end %>
+  </div>
 </div>
 
 <% @post.contents.each do |c| %>
+  <div class="mb-3 d-flex justify-content-center">
+    <% case c.kind %>
+    <% when 'paragraph' %>
 
-  <%= render c %>
+      <%= form_with model: [@post, c] do |form| %>
+        <%= form.rich_text_area :paragraph %>
+        <%= form.submit 'update' %>
+      <% end %>
 
-  <%= form_with model: [@post, c] do |form| %>
-    <%= form.rich_text_area :paragraph %>
-    <%= form.submit 'update' %>
-  <% end %>
+    <% when 'image' %>
+        <div class="mb-1">
+          <%= render c %>
+        </div>
+        <%= form_with model: [@post, c] do |form| %>
+          <%= form.file_field :image %>
+          <%= form.submit 'update' %>
+        <% end %>
+    <% else %>
+
+      unknown kind: <%= c.kind %>
+    <% end %>
+  </div>
 
 <% end %>
 

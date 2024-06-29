@@ -3,7 +3,7 @@ class ContentsController < ApplicationController
   before_action :set_content, only: %i[update destroy]
 
   def create
-    @content = @post.contents.build
+    @content = @post.contents.build(content_params)
     @content.save
     redirect_to edit_post_path @post
   end
@@ -23,7 +23,7 @@ class ContentsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def content_params
-    params.require(:content).permit(:kind, :paragraph, :position)
+    params.require(:content).permit(:image, :kind, :paragraph, :position)
   end
 
   def set_content

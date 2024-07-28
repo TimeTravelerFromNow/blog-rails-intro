@@ -17,6 +17,32 @@
 @import "bootstrap";
 @import "font-awesome";
 
+.silver-bg {
+  background-image: linear-gradient(to right, #ffc1c1,#fcffff,#e5e6e6 );
+}
+
+.fl-menu {
+  @extend .silver-bg !optional;
+  width: max-content;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+        font-weight: bold;
+        padding: 5px;
+        border-radius: 4px;
+        font-size: 90%;
+
+        border-style: ridge;
+        @extend .p-3 !optional;
+        z-index: 1;
+
+         ul a:hover {
+        	background-color: rgba(244,244,244,0.1);
+        	//color: #FFFFFF!important;
+        }
+
+}
 .content-image {
     max-width: 250px;
 }

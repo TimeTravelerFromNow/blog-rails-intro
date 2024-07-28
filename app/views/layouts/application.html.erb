@@ -19,9 +19,24 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="c-top navbar-nav ml-md-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <%= link_to "blogs", blogs_path, class:"nav-link active"%>
+    
+        <li class="nav-item" data-controller="dropdown">
+            <a class="nav-link fl-button dropdown-toggle" data-action='click->dropdown#ddClicked' data-dropdown-target="flButton" role="button" aria-haspopup="true" aria-expanded="false">
+                Blog
+            </a>
+            
+            <% if Blog.all.count > 0 %>
+                <div class='fl-menu' style='display:none;'  data-dropdown-target="flMenu" aria-labelledby="navbarDropdown">
+                    <%  Blog.all.each do |blog| %>
+                        <%= link_to  blog.title, blog_path(blog), class:'dropdown-item' %>
+                    <% end %>
+                </div>
+            <% else %>
+             no blogs yet
+            <% end %>
+
         </li>
+          
         <li class="nav-item">
           <%= link_to "posts", posts_path, class:"nav-link active"%>
         </li>

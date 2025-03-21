@@ -128,6 +128,8 @@ GEM
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
+    mina (1.2.5)
+      rake
     mini_magick (4.12.0)
     mini_mime (1.1.5)
     minitest (5.22.0)
@@ -256,6 +258,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
+  mina
   puma (~> 5.0)
   rails (~> 7.0.8)
   redis (~> 4.0)

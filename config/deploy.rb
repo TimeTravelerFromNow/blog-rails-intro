@@ -1,6 +1,6 @@
 require 'mina/rails'
 require 'mina/git'
-
+require 'mina/rbenv'
 # you can use `run :local` to run tasks on local machine before of after the deploy scripts
 # run(:local){ say 'done' }
 
@@ -17,7 +17,7 @@ set :deploy_to, "/home/#{fetch(:user)}/app"
 set :repository, 'git@github.com:TimeTravelerFromNow/blog-rails-intro.git'
 set :branch, 'blog-deploy-config'
 set :production_key, File.read('config/credentials/production.key').strip # remove newline
-
+set :rbenv_path, '/opt/rbenv'
 # Optional settings:
 #   set :user, 'foobar'          # Username in the server to SSH to. ( already done above )
 # set :port, '30000'           # SSH port number.
@@ -37,9 +37,12 @@ task :remote_environment do
   raise "Couldn't determine Ruby version: Do you have a file .ruby-version in your project root?" if ruby_version.empty?
 
    # setting rbenv root to a shared folder so it only needs installing once on VPS
-   command %[export RBENV_ROOT="/opt/rbenv"]
+# do this in /etc/profile, maybe bash profile if necessary
+#command %[export RBENV_ROOT="/opt/rbenv"]
+   invoke :'rbenv:load'
    ruby_version_number = ruby_version.gsub('ruby-','')
-   command %[rbenv local #{ruby_version_number}]
+   # command %[rbenv local #{ruby_version_number}]
+   # invoke :'rbenv:local', ruby_version_number
 end
 
 # Put any custom commands you need to run at setup
@@ -74,13 +77,14 @@ task :deploy do
   deploy do
     # Put things that will set up an empty directory into a fully set-up
     # instance of your project.
+
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
 
-    invoke :'deploy:cleanup'  # deploy cleanup maybe wiped the files in active record (VERSION 18)
+    # invoke :'deploy:cleanup'
     on :launch do
     # you need to create a server process with the name of the user for this to work
 #      command "sudo systemctl restart #{fetch(:user)}"

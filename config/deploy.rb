@@ -1,7 +1,5 @@
 require 'mina/rails'
 require 'mina/git'
-#require 'mina/rvm'
-require 'mina/rbenv'
 
 # you can use `run :local` to run tasks on local machine before of after the deploy scripts
 # run(:local){ say 'done' }
@@ -17,14 +15,8 @@ set :domain, '165.227.89.149'
 set :user, fetch(:application_name)
 set :deploy_to, "/home/#{fetch(:user)}/app"
 set :repository, 'git@github.com:TimeTravelerFromNow/blog-rails-intro.git'
-set :branch, 'main'
-#set :rvm_use_path, '/etc/profile.d/rvm.sh'
+set :branch, 'blog-deploy-config'
 set :production_key, File.read('config/credentials/production.key').strip # remove newline
-
-run(:local) do
-
-  command %[echo "prod key is #{fetch(:production_key)}"]
-end
 
 # Optional settings:
 #   set :user, 'foobar'          # Username in the server to SSH to. ( already done above )
@@ -44,8 +36,10 @@ task :remote_environment do
   ruby_version = File.read('.ruby-version').strip
   raise "Couldn't determine Ruby version: Do you have a file .ruby-version in your project root?" if ruby_version.empty?
 
-#  invoke :'rvm:use', ruby_version
-   invoke :'rbenv:load'
+   # setting rbenv root to a shared folder so it only needs installing once on VPS
+   command %[export RBENV_ROOT="/opt/rbenv"]
+   ruby_version_number = ruby_version.gsub('ruby-','')
+   command %[rbenv local #{ruby_version_number}]
 end
 
 # Put any custom commands you need to run at setup
@@ -64,7 +58,7 @@ task :setup do
       pool: 5
       timeout: 5000]
     command %[test -e #{path_database_yml} || echo "#{database_yml}" > #{path_database_yml}]
-    
+
     production_key_file = 'config/credentials/production.key'
     command %[test -e #{production_key_file} || echo "#{fetch(:production_key)}" > #{production_key_file}]
     # Remove others-permission for config directory
@@ -87,9 +81,9 @@ task :deploy do
     invoke :'rails:assets_precompile'
 
     invoke :'deploy:cleanup'  # deploy cleanup maybe wiped the files in active record (VERSION 18)
-    # you need to create a server process with the name of the user for this to work
     on :launch do
-      command "sudo systemctl restart #{fetch(:user)}"
+    # you need to create a server process with the name of the user for this to work
+#      command "sudo systemctl restart #{fetch(:user)}"
     end
   end
 end

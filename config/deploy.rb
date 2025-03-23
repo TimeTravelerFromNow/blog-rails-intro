@@ -1,6 +1,6 @@
 require 'mina/rails'
 require 'mina/git'
-require 'mina/rbenv'
+require 'mina/rvm'
 # you can use `run :local` to run tasks on local machine before of after the deploy scripts
 # run(:local){ say 'done' }
 
@@ -17,7 +17,7 @@ set :deploy_to, "/home/#{fetch(:user)}/app"
 set :repository, 'git@github.com:TimeTravelerFromNow/blog-rails-intro.git'
 set :branch, 'blog-deploy-config'
 set :production_key, File.read('config/credentials/production.key').strip # remove newline
-set :rbenv_path, '/opt/rbenv'
+set :rvm_use_path, '/etc/profile.d/rvm.sh'
 # Optional settings:
 #   set :user, 'foobar'          # Username in the server to SSH to. ( already done above )
 # set :port, '30000'           # SSH port number.
@@ -42,7 +42,7 @@ task :remote_environment do
   # before building ruby, set rbenv root to a shared folder so it only needs installing once on VPS
   # do this in /etc/profile, maybe users bash profile if necessary
   # export RBENV_ROOT="/opt/rbenv"
-  invoke :'rbenv:load'
+  invoke :'rvm:use', ruby_version
 end
 
 # Put any custom commands you need to run at setup

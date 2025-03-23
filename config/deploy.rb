@@ -29,6 +29,9 @@ set :rbenv_path, '/opt/rbenv'
 # set :shared_dirs, fetch(:shared_dirs, []).push('public/assets')
 set :shared_files, fetch(:shared_files, []).push('config/credentials/production.key', 'config/database.yml')
 set :shared_dirs, fetch(:shared_dirs, []).push('public/packs', 'node_modules', 'storage')
+# if you want to backup storage by version, first remove 'storage' from shared
+# run something like command %[cp -r ~/app/current/storage .] in deploy to copy into storage next release
+# then you can manually handle the storage, or write a script, maybe in the rollback task
 
 # This task is the environment that is loaded for all remote run commands, such as
 # `mina deploy` or `mina rake`.
@@ -36,13 +39,10 @@ task :remote_environment do
   ruby_version = File.read('.ruby-version').strip
   raise "Couldn't determine Ruby version: Do you have a file .ruby-version in your project root?" if ruby_version.empty?
 
-   # setting rbenv root to a shared folder so it only needs installing once on VPS
-# do this in /etc/profile, maybe bash profile if necessary
-#command %[export RBENV_ROOT="/opt/rbenv"]
-   invoke :'rbenv:load'
-   ruby_version_number = ruby_version.gsub('ruby-','')
-   # command %[rbenv local #{ruby_version_number}]
-   # invoke :'rbenv:local', ruby_version_number
+  # before building ruby, set rbenv root to a shared folder so it only needs installing once on VPS
+  # do this in /etc/profile, maybe users bash profile if necessary
+  # export RBENV_ROOT="/opt/rbenv"
+  invoke :'rbenv:load'
 end
 
 # Put any custom commands you need to run at setup

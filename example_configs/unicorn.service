@@ -1,13 +1,13 @@
 [Unit]
-Description=rails-demo service
+Description=blog-rails-intro service
 After=network.target
 
 [Service]
 Type=forking
-WorkingDirectory=/home/rails-demo/app/
-User=rails-demo
-ExecStart=/usr/local/rvm/bin/rvm in /home/rails-demo/app/current/ do bundle exec unicorn -D -c /home/rails-demo/app/shared/config/unicorn.conf.rb -E production
-SyslogIdentifier=unicorn-rails-demo
+WorkingDirectory=/home/blog-rails-intro/app/
+User=blog-rails-intro
+ExecStart=/usr/local/rvm/bin/rvm in /home/blog-rails-intro/app/current/ do bundle exec unicorn -D -c /home/blog-rails-intro/app/shared/config/unicorn.conf.rb -E production
+SyslogIdentifier=unicorn-blog-rails-intro
 # stop by sending only the main process a SIGQUIT signal
 KillMode=process
 KillSignal=SIGQUIT
@@ -17,7 +17,7 @@ ExecReload=/bin/kill -HUP $MAINPID
 Restart=always
 RestartSec=1
 # Path to Unicorn PID file (as specified in unicorn configuration file)
-PIDFile=/home/rails-demo/app/shared/unicorn.pid
+PIDFile=/home/blog-rails-intro/app/shared/unicorn.pid
 
 [Install]
 WantedBy=multi-user.target

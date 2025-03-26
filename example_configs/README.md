@@ -5,55 +5,17 @@ permissions need to be set, following the directory structure, as well as specif
 Unicorn is the ruby webserver, which needs to be configured as a linux system process.
 Nginx is a reverse proxy which routes web traffic through the Unicorn webserver.
 
-
-Huge credit to Ralf Ebert for his ruby on rails VPS deploy tutorial[1]
-
-* Unicorn setup
+## Unicorn setup
 
 Here's an example unicorn configuration which should be placed in the server's rails app user at
 ~/app/shared/config/unicorn.conf.rb
-```
-# Get the directory of the app
-app_path = File.expand_path(File.join(File.dirname(__FILE__), '../../'))
 
-listen '127.0.0.1:4000'
-listen File.join(app_path, 'shared/unicorn.sock'), :backlog => 64
-
-worker_processes 2
-
-working_directory File.join(app_path, 'current')
-pid File.join(app_path, 'shared/unicorn.pid')
-stderr_path File.join(app_path, 'current/log/unicorn.log')
-stdout_path File.join(app_path, 'current/log/unicorn.log')
-
-```
+../unicorn.conf.rb
 
 Unicorn as a systemd service, create this at /etc/systemd/system/blog-rails-intro.service
-```
-[Unit]
-Description=blog-rails-intro service
-After=network.target
 
-[Service]
-Type=forking
-WorkingDirectory=/home/blog-rails-intro/app/
-User=blog-rails-intro
-ExecStart=/usr/local/rvm/bin/rvm in /home/blog-rails-intro/app/current/ do bundle exec unicorn -D -c /home/blog-rails-intro/app/shared/config/unicorn.conf.rb
-SyslogIdenitifier=unicorn-blog-rails-intro
-#stop by sending only the main process a SIGQUIT signal
-KillMode=process
-KillSignal=SIGQUIT
-#enable reload Unicorn via HUP signal
-ExecReload=/bin/kill -HUP $MAINPID
-# Try restart of service after 1 second
-Restart=always
-RestartSec=1
-#Path to PID file
-PIDFile=/home/blog-rails-intro/app/shared/unicorn.pid
+../unicorn.service
 
-[Install]
-WantedBy=multi-user.target
-```
 systemd services dont allow variables, so edit as needed (replace blog-rails-intro with your app's name).
 Dont try achieving this with variables.
 Then test the process starts and stops:
@@ -64,7 +26,41 @@ Then test the process starts and stops:
 `systemctl restart $APP_NAME`
 Enable on boot
 `systemctl enable $APP_NAME`
-Then set up nginx...
 
-# Credits
-## Ralf Ebert [website](https://ralfebert.com) [github](https://github.com/ralfebert)
+## Nginx
+
+copy nginx-rails-site into the server at /etc/nginx/sites-available/blog-rails-intro
+then symbol link it to sites enabled like so
+
+`ln -s /etc/nginx/sites-available/blog-rails-intro /etc/nginx/sites-enabled/blog-rails-intro`
+
+If you need to delete it, delete the symbol linked enable file then delete the file in `/etc/nginx/sites-available`
+
+## rbenv
+
+if you decide to use rbenv, before installing ruby set rbenv root to a shared folder
+
+`export RBENV_ROOT="/opt/rbenv"`
+
+so it only needs installing once per user on your server, then create a linux user group
+give recursive write permissions to the group for the shared dir, then add all users to group
+
+in the config/deploy.rb mina deploy config file:
+
+```
+# top of file
+require 'mina/rbenv'
+set :rbenv_path, '/opt/rbenv'
+# in task(:remove_environment)
+invoke 'rbenv:load' # instead of rvm use
+```
+and rbenv should automatically read the .ruby-version file and select the correct ruby version, which is nice
+
+## Shared storage/ folder
+if you want to backup storage by version, first remove 'storage' from shared directories declaration.
+Then add a command like %[cp -r ~/app/current/storage .] in the deploy config to copy into ~/app/current/storage from the previous, into the build directory for the next release
+
+The benefit of this approach is you can manually handle the storage, and during rollbacks you can retrieve older storage if the current one is buggy.
+
+## Credits
+1. Ralf Ebert [website](https://ralfebert.com) [github](https://github.com/ralfebert)

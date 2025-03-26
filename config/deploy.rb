@@ -15,13 +15,12 @@ set :domain, '165.227.89.149'
 set :user, fetch(:application_name)
 set :deploy_to, "/home/#{fetch(:user)}/app"
 set :repository, 'git@github.com:TimeTravelerFromNow/blog-rails-intro.git'
-set :branch, 'blog-deploy-config'
+set :branch, 'main'
+# make sure to run EDITOR='code --wait' ./bin/rails credentials:edit --environment=production,
+# and add this then close the file to save.
+# secret_key_base: yoursupersecretkey
 set :production_key, File.read('config/credentials/production.key').strip # remove newline
 set :rvm_use_path, '/etc/profile.d/rvm.sh'
-# Optional settings:
-#   set :user, 'foobar'          # Username in the server to SSH to. ( already done above )
-# set :port, '30000'           # SSH port number.
-#   set :forward_agent, true     # SSH forward_agent.
 
 # Shared dirs and files will be symlinked into the app-folder by the 'deploy:link_shared_paths' step.
 # Some plugins already add folders to shared_dirs like `mina/rails` add `public/assets`, `vendor/bundle` and many more
@@ -29,9 +28,6 @@ set :rvm_use_path, '/etc/profile.d/rvm.sh'
 # set :shared_dirs, fetch(:shared_dirs, []).push('public/assets')
 set :shared_files, fetch(:shared_files, []).push('config/credentials/production.key', 'config/database.yml')
 set :shared_dirs, fetch(:shared_dirs, []).push('public/packs', 'node_modules', 'storage')
-# if you want to backup storage by version, first remove 'storage' from shared
-# run something like command %[cp -r ~/app/current/storage .] in deploy to copy into storage next release
-# then you can manually handle the storage, or write a script, maybe in the rollback task
 
 # This task is the environment that is loaded for all remote run commands, such as
 # `mina deploy` or `mina rake`.
@@ -39,9 +35,6 @@ task :remote_environment do
   ruby_version = File.read('.ruby-version').strip
   raise "Couldn't determine Ruby version: Do you have a file .ruby-version in your project root?" if ruby_version.empty?
 
-  # before building ruby, set rbenv root to a shared folder so it only needs installing once on VPS
-  # do this in /etc/profile, maybe users bash profile if necessary
-  # export RBENV_ROOT="/opt/rbenv"
   invoke :'rvm:use', ruby_version
 end
 
@@ -54,6 +47,7 @@ task :setup do
     command %[mkdir -p config]
 
     # Create database.yml for Postgres if it doesn't exist
+    # this will override config/database.yml and make sure the user is the app name
     path_database_yml = "config/database.yml"
     database_yml = %[production:
       database: #{fetch(:user)}
@@ -71,8 +65,7 @@ end
 
 desc "Deploys the current version to the server."
 task :deploy do
-  # uncomment this line to make sure you pushed your local branch to the remote origin
-  invoke :'git:ensure_pushed'
+  invoke :'git:ensure_pushed' # makes sure you've pushed to github
 
   deploy do
     # Put things that will set up an empty directory into a fully set-up
@@ -84,10 +77,10 @@ task :deploy do
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
 
-    # invoke :'deploy:cleanup'
+    invoke :'deploy:cleanup'
     on :launch do
-    # you need to create a server process with the name of the user for this to work
-#      command "sudo systemctl restart #{fetch(:user)}"
+     # you need to create a server process with the name of the user for this to work
+     # command "sudo systemctl restart #{fetch(:user)}"
     end
   end
 end

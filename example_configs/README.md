@@ -7,34 +7,50 @@ Nginx is a reverse proxy which routes web traffic through the Unicorn webserver.
 
 ## Unicorn setup
 
-Here's an example unicorn configuration which should be placed in the server's rails app user at
-~/app/shared/config/unicorn.conf.rb
+### Unicorn config
 
-../unicorn.conf.rb
+Here's an example unicorn configuration which should be placed in the server's rails app shared config directory
 
-Unicorn as a systemd service, create this at /etc/systemd/system/blog-rails-intro.service
+`curl https://raw.githubusercontent.com/timetravelerfromnow/blog-rails-intro/refs/heads/main/example_configs/unicorn.conf.rb > ~/app/shared/config/unicorn.conf.rb`
 
-../unicorn.service
+### Unicorn system service
 
-systemd services dont allow variables, so edit as needed (replace blog-rails-intro with your app's name).
-Dont try achieving this with variables.
+Unicorn as a systemd service, create this in your server, rename to the app name.
+
+`curl https://raw.githubusercontent.com/timetravelerfromnow/blog-rails-intro/refs/heads/main/example_configs/unicorn.service > /etc/systemd/system/blog-rails-intro.service`
+
+Manually replace `blog-rails-intro` with your app name
+Double check `ExecStart=/usr/share/rvm/bin/rvm` is set to your ruby version manager's executable. You can check the executable path in the server with `which rvm` or `which rbenv`
+
 Then test the process starts and stops:
-`APP_NAME=blog-rails-intro`
 `systemctl daemon-reload`
-`systemctl start $APP_NAME`
-`systemctl stop $APP_NAME`
-`systemctl restart $APP_NAME`
+`systemctl start blog-rails-intro`
+`systemctl stop blog-rails-intro`
+`systemctl restart blog-rails-intro`
 Enable on boot
-`systemctl enable $APP_NAME`
+`systemctl enable blog-rails-intro`
+
+### Unicorn rack 3 incompatibility
+
+with Rails version >7.1 which uses Rack 3, unicorn may fail and error (check your logs shared/logs). Follow similar steps as above to switch your ruby webserver to `puma` or manually add support by monkeypatching
+`/home/blog-rails-intro/app/current/vendor/bundle/ruby/3.3.0/gems/unicorn-6.1.0/lib/unicorn/http_response.rb`
+Wont go into detail on this issue
 
 ## Nginx
 
-copy nginx-rails-site into the server at /etc/nginx/sites-available/blog-rails-intro
-then symbol link it to sites enabled like so
+Create a nginx sites-available file named the same as your rails app
+
+`curl https://raw.githubusercontent.com/timetravelerfromnow/blog-rails-intro/refs/heads/main/example_configs/nginx-rails-site > /etc/nginx/sites-available/blog-rails-intro`
+
+Edit it to use your app name. Then obtain a domain, set DNS records to your server ip. Edit the nginx file to use your domain instead of `example.com`,
+then symbol link it to sites enabled like so.
 
 `ln -s /etc/nginx/sites-available/blog-rails-intro /etc/nginx/sites-enabled/blog-rails-intro`
+`systemctl reload nginx`
 
-If you need to delete it, delete the symbol linked enable file then delete the file in `/etc/nginx/sites-available`
+Give the root user permissions to read /home/blog-rails-live so nginx can read unicorn.sock and assets
+
+`chmod 755 /home/blog-rails-intro`
 
 ## rbenv
 
@@ -42,10 +58,11 @@ if you decide to use rbenv, before installing ruby set rbenv root to a shared fo
 
 `export RBENV_ROOT="/opt/rbenv"`
 
-so it only needs installing once per user on your server, then create a linux user group
-give recursive write permissions to the group for the shared dir, then add all users to group
+so it only needs installing once per user on your server, then create a linux user group (wont detail this here, you can look it up).
+give recursive read/write/exec permissions to the group for the shared `/opt/rbenv` dir, then add all rails apps users to group.
+This gives your rails user permissions to update gems.
 
-in the config/deploy.rb mina deploy config file:
+Then the process for config/deploy.rb mina deploy config file:
 
 ```
 # top of file
@@ -54,13 +71,15 @@ set :rbenv_path, '/opt/rbenv'
 # in task(:remove_environment)
 invoke 'rbenv:load' # instead of rvm use
 ```
-and rbenv should automatically read the .ruby-version file and select the correct ruby version, which is nice
+rbenv should automatically read the .ruby-version file and select the correct ruby version, which is nice
 
 ## Shared storage/ folder
+
 if you want to backup storage by version, first remove 'storage' from shared directories declaration.
-Then add a command like %[cp -r ~/app/current/storage .] in the deploy config to copy into ~/app/current/storage from the previous, into the build directory for the next release
+Then add a command like `%[cp -r ~/app/current/storage .]`
 
 The benefit of this approach is you can manually handle the storage, and during rollbacks you can retrieve older storage if the current one is buggy.
+The drawback is that it will take up more space.
 
 ## Credits
 1. Ralf Ebert [website](https://ralfebert.com) [github](https://github.com/ralfebert)

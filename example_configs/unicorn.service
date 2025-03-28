@@ -6,7 +6,7 @@ After=network.target
 Type=forking
 WorkingDirectory=/home/blog-rails-intro/app/
 User=blog-rails-intro
-ExecStart=/usr/local/rvm/bin/rvm in /home/blog-rails-intro/app/current/ do bundle exec unicorn -D -c /home/blog-rails-intro/app/shared/config/unicorn.conf.rb -E production
+ExecStart=/usr/share/rvm/bin/rvm in /home/blog-rails-intro/app/current/ do bundle exec unicorn -D -c /home/blog-rails-intro/app/shared/config/unicorn.conf.rb -E production
 SyslogIdentifier=unicorn-blog-rails-intro
 # stop by sending only the main process a SIGQUIT signal
 KillMode=process

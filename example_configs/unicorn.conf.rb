@@ -1,7 +1,6 @@
 # Get the directory of the app
 app_path = File.expand_path(File.join(File.dirname(__FILE__), '../../'))
 
-listen '127.0.0.1:4000'
 listen File.join(app_path, 'shared/unicorn.sock'), :backlog => 64
 
 worker_processes 2

@@ -30,6 +30,13 @@ Then test the process starts and stops:
 Enable on boot
 `systemctl enable blog-rails-intro`
 
+### Give permissions to restart the service
+
+As root,
+`EDITOR=nano visudo` (sudoers file gives sudo access)
+`blog-rails-live ALL=(ALL) NOPASSWD: /bin/systemctl restart blog-rails-live`
+Save the file, now the rails app user can restart the unicorn service, uncomment the deploy.rb config line that restarts the service
+
 ### Unicorn rack 3 incompatibility
 
 with Rails version >7.1 which uses Rack 3, unicorn may fail and error (check your logs shared/logs). Follow similar steps as above to switch your ruby webserver to `puma` or manually add support by monkeypatching

@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
   namespace :admin do
-    resources :posts, except: %i[index show] do
+    get "dashboard", to: "dashboard#index"
+
+    resources :posts do
       resources :contents
     end
 
-    resources :blogs, except: %i[index show] do
+    resources :blogs, param: :address do
       resources :posts
     end
   end

@@ -1,0 +1,18 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @blog %>
+
+<div class="container">
+<% @blog.posts.each do |post| %>
+  <%= link_to post, class:"row" do %>
+    <%= render post %>
+  <% end %>
+<% end %>
+</div>
+
+<div>
+  <%= link_to "Edit this blog", edit_admin_blog_path(@blog), class:'btn btn-primary' %> |
+  <%= link_to "Back to blogs", admin_blogs_path, class:'btn btn-secondary' %>
+
+  <%= button_to "Destroy this blog", [:admin,@blog], method: :delete, class:'btn btn-danger', data: { turbo_confirm: "are you sure?"} %>
+</div>

@@ -4,7 +4,7 @@
 <br>
 <hr>
 
-<%= form_with model:[@blog,@post] do |form| %>
+<%= form_with model:[:admin, @blog, @post] do |form| %>
 
   <%= form.label :title %>
   <%= form.text_field :title %>
@@ -15,6 +15,6 @@
 <% end %>
 
 <div>
-  <%= link_to "Show this blog", @blog, class:'btn btn-primary' %> |
-  <%= link_to "Back to blogs", blogs_path, class:'btn btn-primary' %>
+  <%= link_to "Show this blog", [:admin,@blog], class:'btn btn-primary' %> |
+  <%= link_to "Back to blogs", admin_blogs_path, class:'btn btn-primary' %>
 </div>

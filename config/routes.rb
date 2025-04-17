@@ -1,24 +1,24 @@
 Rails.application.routes.draw do
-  get 'contents/create'
-  get 'contents/update'
-  get 'contents/destroy'
-  resources :ext_links
-  resources :homes do
-    resources :blogs, param: :address
+  namespace :admin do
+    resources :posts, except: %i[index show] do
+      resources :contents
+    end
+
+    resources :blogs, except: %i[index show] do
+      resources :posts
+    end
   end
 
-  resources :posts do
-    resources :contents
+  # PUBLIC (No Create, update, destroy)
+  resources :posts, except: %i[new create update destroy] do
+    resources :contents, except: %i[new create update destroy]
   end
 
-  resources :blogs, param: :address do
-    resources :posts
+  resources :blogs, except: %i[new create update destroy] do
+    resources :posts, except: %i[new create update destroy]
   end
 
   get "homes/:id/make_active", to:"homes#make_active", as: :make_active
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
   root "homes#about"
 end

@@ -14,6 +14,8 @@ class ContentsController < ApplicationController
   end
 
   def destroy
+    @content.destroy
+    redirect_to edit_post_path @post
   end
 
   private

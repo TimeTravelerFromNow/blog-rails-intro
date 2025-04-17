@@ -11,7 +11,7 @@ require 'mina/rvm'
 #   branch       - Branch name to deploy. (needed by mina/git)
 
 set :application_name, 'blog-rails-intro'
-set :domain, '165.227.89.149'
+set :domain, 'server-ip-or-domain'
 set :user, fetch(:application_name)
 set :deploy_to, "/home/#{fetch(:user)}/app"
 set :repository, 'git@github.com:TimeTravelerFromNow/blog-rails-intro.git'

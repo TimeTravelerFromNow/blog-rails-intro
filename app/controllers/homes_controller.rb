@@ -26,7 +26,7 @@ class HomesController < ApplicationController
 
   # GET /homes/new
   def new
-    @home = Home.new
+    @home = Home.example_home
   end
 
   # GET /homes/1/edit

@@ -11,43 +11,45 @@ class Home < ApplicationRecord
   validates_inclusion_of :site_width, :in => VALID_SITE_WIDTHS
 
   before_save :activate_when_none_active
+
+  # Instance methods
   def activate_when_none_active
-    self.active = true if Home.active_home.nil?
-  end
-
-  def self.time_stamp
-    home_time = "2022"
-    return home_time unless Home.active_home
-    home_time = Home.active_home.time_tag.year if Home.active_home.time_tag
-    home_time
-  end
-
-  def self.active_home
-    Home.all.where(active: true).first
+    self.active = true unless Home.active_home.active
   end
 
   def fa_icon
-    self.icon_class ||= 'fa-solid'
-    self.icon ||= 'fa-robot'
     icon_html(icon_class, icon, site_icon_size)
   end
 
+
+  # Class/singleton methods
   def self.fa_icon
-    return "<i class='fa-solid fa-robot'></i>" unless Home.active_home
-    Home.active_home.fa_icon if Home.active_home.fa_icon
+    active_home.fa_icon
+  end
+
+  def self.time_stamp
+    Home.active_home.time_tag.year
+  end
+
+  def self.active_home
+    Home.all.where(active: true).first || example_home # safe fallback to use so we dont error out
   end
 
   def self.brand
-    bn = "my personal website"
-    return bn unless Home.active_home
-    bn = Home.active_home.brand_name if Home.active_home.brand_name
-    bn
+    active_home.brand_name
   end
 
   def self.site_width
-    site_width = 720
-    return site_width unless Home.active_home
-    site_width = Home.active_home.site_width if Home.active_home.site_width
-    site_width
+    active_home.site_width
+  end
+
+  def self.example_home
+    Home.new(about: 'Hello visitor, welcome to my website',
+             site_icon_size: 3,
+             site_width: 720,
+             brand_name: 'personal rails website',
+             time_tag: Time.now,
+             icon_class: 'fa-solid', 
+             icon: 'fa-robot', blogs: Blog.all)
   end
 end

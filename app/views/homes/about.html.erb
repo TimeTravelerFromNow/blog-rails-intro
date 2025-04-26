@@ -1,7 +1,12 @@
 
-<% if @home %>
-  <%= render @home %>
-<% else %>
-  #Home page needs configuring, check out my blog
-  <%= link_to "my blog", blogs_path %>
-<% end %>
+<div id="blogs" class="container-md mb-3">
+  <div class="blog-card-row">
+  <% @home.blogs.each do |blog| %>
+    <%= link_to blog, class:"blog-link-square col" do %>
+      <%= render "blogs/blog_card", blog: blog %>
+    <% end %>
+  <% end %>
+  </div>
+</div>
+
+<%= render @home %>
